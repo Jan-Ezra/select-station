@@ -10,12 +10,14 @@ import 'package:select_station/pages/location/station_controller.dart';
 
 class LoginController extends GetxController{
   Rx<LatLng> userCoordinates = LatLng(0, 0).obs;
+  var loader = false.obs;
   final formKey = GlobalKey<FormState>();
   TextEditingController mobileNumberController = TextEditingController(text: "+639998520424");
   TextEditingController passwordController = TextEditingController(text: "111111");
 
   login() async {
     if(formKey.currentState.validate()){
+      loader.value = true;
       var url = Uri.parse('https://staging.api.locq.com/ms-profile/user/login');
       var response = await http.post(
         url, 
@@ -28,13 +30,16 @@ class LoginController extends GetxController{
       
       var data = jsonDecode(response.body);
       if(data['message'] == "User successfully logged in"){
+        loader.value = true;
         determinePosition().then((position){
           userCoordinates.value = LatLng(position.latitude, position.longitude);
         }).then((value){
+          loader.value = false;
           Get.to(() => Station());
         });
         
       }else{
+        loader.value = false;
         Get.snackbar("Error", data['message'], duration: Duration(seconds: 2), backgroundColor: Colors.black, colorText: Colors.white);
       }
     }
