@@ -90,7 +90,7 @@ class _SearchStationState extends State<SearchStation> {
             ),
           ),
           Obx(()=>Container(
-            height: MediaQuery.of(context).size.height / 1.3,
+            height: MediaQuery.of(context).size.height / 1.4,
             child: !staCon.isFiltered.value ? ListView.builder(
               itemCount: staCon.stationModel.station.length,
               shrinkWrap: true,
