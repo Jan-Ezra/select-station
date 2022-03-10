@@ -99,7 +99,6 @@ class StationController extends GetxController{
       stationModel.station = data['data']['stations'];
       stationModel.station.forEach((doc) {
         var distance = Geolocator.distanceBetween(logCon.userCoordinates.value.latitude, logCon.userCoordinates.value.longitude, doc['latitude'], doc['longitude']);
-        print("distance: "+ distance.toString());
         doc['distance'] = distance * 0.001;
       });
       stationModel.station.sort((a,b) => a['distance'].compareTo(b['distance']));
@@ -149,11 +148,9 @@ class StationController extends GetxController{
         }
       }
       filteredList.station = newArray;
-      print(filteredList.station);
     }else{
       isFiltered.value = false;
       stationModel = stationOldData;
-      print(stationModel.station.length);
     }
   }
 

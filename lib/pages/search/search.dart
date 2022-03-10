@@ -77,7 +77,6 @@ class _SearchStationState extends State<SearchStation> {
                           }
                         }
                         staCon.filteredList.station = newArray;
-                        print(staCon.filteredList.station);
                       }else{
                         staCon.isFiltered.value = false;
                         staCon.stationModel = stationOldData;
